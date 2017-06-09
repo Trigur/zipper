@@ -6,6 +6,7 @@ if (!defined('BASEPATH')) {
 
 class Zipper_model extends CI_Model
 {
+    private $COMPONENT_NAME = 'zipper';
     private $TABLE_NAME = 'zipper';
 
     public function __construct()
@@ -57,12 +58,18 @@ class Zipper_model extends CI_Model
         $this->dbforge->create_table($this->TABLE_NAME, TRUE);
 
         $this->db
-            ->where('name', 'zipper')
+            ->where('name', $this->COMPONENT_NAME)
             ->update('components', [
                 'autoload' => '0',
                 'enabled'  => '0',
                 'in_menu'  => '0'
             ]);
+    }
+
+    public function errorInstall()
+    {
+        $this->db->where('name', $this->COMPONENT_NAME);
+        $this->db->delete('components');
     }
 
     public function deinstall()
