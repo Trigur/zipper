@@ -1,0 +1,28 @@
+{
+  "name": "trigur/zipper",
+  "description": "ImageCMS module",
+  "keywords": [
+    "zip",
+    "ImageCMS",
+    "ImageCMS module",
+    "module",
+  ],
+  "homepage": "https://github.com/Trigur/zipper",
+  "type": "imagecms-module",
+  "extra": {
+    "installer-name": "zipper"
+  },
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=5.5",
+    "ext-curl": "*",
+    "composer/installers": "^1.0"
+  },
+  "authors": [
+      {
+        "name": "Trigur",
+        "email": "info@aleskeroff.ru",
+        "homepage": "https://github.com/Trigur"
+      }
+  ]
+}
