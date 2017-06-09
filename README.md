@@ -11,7 +11,7 @@
 <p></p>
 <p>В случае возникновения ошибки:</p>
 <ul>
-<li>если ENVIRONMENT == 'development' (см index.php в корне) - выход с описанием ошибки</li>
+<li>если ENVIRONMENT == 'development' (см. index.php в корне) - выход с описанием ошибки</li>
 <li>иначе - возвращается false</li>
 </ul>
 
