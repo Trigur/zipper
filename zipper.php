@@ -178,6 +178,16 @@ class Zipper extends MY_Controller
     */
     public function _install()
     {
+        if (! extension_loaded('zip')) {
+            $this->zipper_model->errorInstall();
+
+            exit(json_encode([
+                'result' => false,
+                'error'  => true,
+                'message' => 'Отсутствует расширение zip для php.'
+            ]));
+        }
+
         $this->zipper_model->install();
     }
 
