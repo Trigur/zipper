@@ -25,10 +25,7 @@ class Zipper_model extends CI_Model
     {
         $this->db->insert($this->TABLE_NAME, $data);
 
-        $row = $this->db->query('SELECT LAST_INSERT_ID()')->row_array();
-        $LastIdInserted = $row['LAST_INSERT_ID()'];
-
-        return $LastIdInserted;
+        return $this->db->insert_id();
     }
 
     public function remove($id)
