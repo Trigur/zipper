@@ -3,7 +3,9 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-
+/**
+ * @property Zipper_model zipper_model
+ */
 class Zipper extends MY_Controller
 {
     private $files;
@@ -48,13 +50,13 @@ class Zipper extends MY_Controller
             $destination = $this->_getDestination($name, $addDate);
 
             $distData = [
-                'hash'         => $hash,
-                'name'         => $name ? $name : '',
-                'relativePath' => $destination,
+	            'hash'         => $hash,
+	            'name'         => $name ?: '',
+	            'relativePath' => $destination,
             ];
 
             if (! $this->_makeArchive($this->documentRoot . $destination)) {
-                throw new Exception("Архив не создан", 1);
+                throw new Exception( 'Архив не создан', 1);
             }
 
             $this->zipper_model->insert($distData);
@@ -75,7 +77,7 @@ class Zipper extends MY_Controller
     {
         $zip = new ZipArchive();
         if ( $zip->open($destination, false ? ZIPARCHIVE::OVERWRITE : ZIPARCHIVE::CREATE) !== true) {
-            throw new Exception("Ошибка создания архива", 1);
+            throw new Exception( 'Ошибка создания архива', 1);
         }
 
         foreach ($this->files as $file) {
@@ -91,8 +93,9 @@ class Zipper extends MY_Controller
         Хэшируем названия файлов для проверки существования архива
     */
     private function _getHash() {
+	    $hash = '';
         foreach ($this->files as $item) {
-            $hash .= $item['relativePath'];
+	        $hash .= $item['relativePath'];
         }
 
         $hash = md5($str);
@@ -128,7 +131,7 @@ class Zipper extends MY_Controller
 
         if (! file_exists($this->documentRoot . $distPath)) {
             if (! @mkdir($this->documentRoot . $distPath, 0777, $recursive = true)){
-                throw new Exception("Ошибка создания папки для архива", 1);
+                throw new Exception( 'Ошибка создания папки для архива', 1);
             }
         }
 
@@ -140,7 +143,7 @@ class Zipper extends MY_Controller
     */
     private function _prepareFiles() {
         if (empty($this->files)) {
-            throw new Exception("Не найдены файлы для добавления в архив", 1);
+            throw new Exception( 'Не найдены файлы для добавления в архив', 1);
         }
 
         if (! is_array($this->files)) {
@@ -167,7 +170,7 @@ class Zipper extends MY_Controller
         }
 
         if (empty($files)) {
-            throw new Exception("Не найдены файлы для добавления в архив", 1);
+            throw new Exception( 'Не найдены файлы для добавления в архив', 1);
         }
 
         $this->files = $files;
