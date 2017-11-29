@@ -4,6 +4,12 @@ if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
+/**
+ * Class Zipper_model
+ *
+ * @property CI_DB_active_record db
+ * @property CI_DB_forge dbforge
+*/
 class Zipper_model extends CI_Model
 {
     private $COMPONENT_NAME = 'zipper';
@@ -18,17 +24,14 @@ class Zipper_model extends CI_Model
     {
         $queryResult = $this->db->get_where($this->TABLE_NAME, ['hash' => $hash])->row_array();
 
-        return $queryResult ? $queryResult : false;
+        return $queryResult ?: false;
     }
 
     public function insert($data)
     {
         $this->db->insert($this->TABLE_NAME, $data);
 
-        $row = $this->db->query('SELECT LAST_INSERT_ID()')->row_array();
-        $LastIdInserted = $row['LAST_INSERT_ID()'];
-
-        return $LastIdInserted;
+	    return $this->db->insert_id();
     }
 
     public function remove($id)
