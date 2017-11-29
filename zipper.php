@@ -93,12 +93,12 @@ class Zipper extends MY_Controller
         Хэшируем названия файлов для проверки существования архива
     */
     private function _getHash() {
-	    $hash = '';
+        $hash = '';
         foreach ($this->files as $item) {
-	        $hash .= $item['relativePath'];
+            $hash .= $item['relativePath'];
         }
 
-        $hash = md5($str);
+        $hash = md5($hash);
 
         return $hash;
     }
